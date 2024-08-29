@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #008CBA;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #ddd;
+            color: black;
+        }
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+        .dropdown .dropbtn {
+            font-size: 16px; 
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin: 0;
+        }
+        .govt-image img {
+            max-width: 100px;
+            height: auto;
+        }
+        .image-container {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        function logout() {
+            window.location.href = "login.html"; // Redirect to login page
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                fetch('/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Form submitted successfully!');
+                })
+                .catch(error => {
+                    alert('There was an error submitting the form: ' + error.message);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header-container">
+        <h1>Welcome to the Loan Management System</h1>
+        <div class="govt-image">
+            <img src="govt_goa.jpg" alt="Goa Government Logo">
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="dropdown">
+            <button class="dropbtn">Loans 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="business_loan.html">Business Loan</a>
+                <a href="educationloan.html">Education Loan</a>
+                <a href="houseloan.html">House repair Loan</a>
+            </div>
+        </div> 
+        <div class="dropdown">
+            <button class="dropbtn">Masters and setup
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="village.html">Village</a>
+                <a href="constituency.html">Constituency</a>
+                <a href="taluka.html">Taluka</a>
+                <a href="apexshare.html">Apex share released</a>
+                <a href="schemes.html">Schemes</a>
+            </div>
+        </div>
+        
+        <a href="login.html" onclick="logout()">Logout</a>
+    </div>
+
+   
+
+    <div class="image-container">
+        <img src="path/to/your/image.png" alt="Loan Management System">
+    </div>
+</body>
+</html>

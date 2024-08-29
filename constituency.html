@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constituency Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+        }
+        .buttons {
+            text-align: left;
+            margin-top: 20px;
+        }
+        button {
+            padding: 5px 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Constituency</h2>
+        </div>
+        <form id="constituencyForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter constituency name" required>
+            </div>
+            <div class="form-group">
+                <label for="region">Region</label>
+                <input type="text" id="region" name="region" placeholder="Enter region" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save">Save</button>
+                <button type="button" class="cancel" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('constituencyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const region = document.getElementById('region').value;
+
+            fetch('http://localhost:3000/submit-constituency-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, region })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the data.');
+            });
+        });
+    </script>
+</body>
+</html>

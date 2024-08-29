@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        input[type="text"], select {
+            width: 200px;
+            padding: 5px;
+        }
+        .buttons {
+            text-align: left;
+            margin-top: 20px;
+        }
+        button {
+            padding: 5px 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Village Form</h2>
+        </div>
+        <form id="villageForm">
+            <div class="form-group">
+                <label for="village_name">Village</label>
+                <input type="text" id="village_name" name="village_name" required>
+            </div>
+            <div class="form-group">
+                <label for="constituency">Constituency</label>
+                <select id="constituency" name="constituency" required>
+                    <option value=""></option>
+                    <option value="Bardez">Bardez</option>
+                    <option value="Canacona">Canacona</option>
+                    <option value="Mandrem">Mandrem</option>
+                    <option value="Pernem">Pernem</option>
+                    <option value="Bicholim">Bicholim</option>
+                    <option value="Tivim">Tivim</option>
+                    <option value="Margao">Margao</option>
+                    <option value="Cuncolim">Cuncolim</option>
+                    <option value="Nuvem">Nuvem</option>
+                    <option value="Fatorda">Fatorda</option>
+                    <option value="Panaji">Panaji</option>
+                    <option value="Taleigao">Taleigao</option>
+                    <option value="Benaulim">Benaulim</option>
+                    <option value="Sanguem">Sanguem</option>
+                    <option value="Sanvordem">Sanvordem</option>
+                    <option value="Curchorem">Curchorem</option>
+                    <option value="Quepem">Quepem</option>
+                    <option value="Velim">Velim</option>
+                    <option value="Curtorim">Curtorim</option>
+                    <option value="Cortalim">Cortalim</option>
+                    <option value="Dabolim">Dabolim</option>
+                    <option value="Vasco Da Gama">Vasco Da Gama</option>
+                    <option value="Mormugao">Mormugao</option>
+                    <option value="Marcaim">Marcaim</option>
+                    <option value="Shiroda">Shiroda</option>
+                    <option value="Priol">Priol</option>
+                    <option value="Valpoi">Valpoi</option>
+                    <option value="Sanquelim">Sanquelim</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="taluka">Taluka</label>
+                <input type="text" id="taluka" name="taluka" required>
+            </div>
+            <div class="form-group">
+                <label for="district">District</label>
+                <select id="district" name="district" required>
+                    <option value=""></option>
+                    <option value="North Goa">North Goa</option>
+                    <option value="South Goa">South Goa</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="submit">Save</button>
+                <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('villageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const village_name = document.getElementById('village_name').value;
+            const constituency = document.getElementById('constituency').value;
+            const taluka = document.getElementById('taluka').value;
+            const district = document.getElementById('district').value;
+    
+            fetch('http://localhost:3000/submit-village-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ village_name, constituency, taluka, district })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while saving the data.');
+            });
+        });
+    </script>
+    
+</body>
+</html>

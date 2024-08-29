@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Share Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Apex Share Released</h2>
+        </div>
+        <br>
+        <form id="apexForm">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" id="amount" required><br><br>
+
+                <label for="correspondance">Correspondance</label>
+                <input type="text" id="correspondance" required><br><br>
+
+                <label for="release_date">Date of Release</label>
+                <input type="date" id="release_date" required><br><br>
+
+                <label for="apex_share_release">Apex Share Released*</label>
+                <input type="text" id="apex_share_release" required><br><br>
+            </div>
+            <input type="submit" value="Save">
+            <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('apexForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const amount = document.getElementById('amount').value;
+            const correspondance = document.getElementById('correspondance').value;
+            const release_date = document.getElementById('release_date').value;
+            const apex_share_release = document.getElementById('apex_share_release').value;
+
+            fetch('http://localhost:3000/submit-apex-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ amount, correspondance, release_date, apex_share_release })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('Success: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Data saved sccessfully.');
+            });
+        });
+    </script>
+</body>
+</html>

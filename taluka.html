@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taluka Form</title>
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+        }
+        input[type="text"], select {
+            width: 200px;
+            padding: 5px;
+        }
+        .buttons {
+            text-align: left;
+            margin-top: 20px;
+        }
+        button {
+            padding: 5px 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Taluka Form</h2>
+        </div>
+        <form id="talukaForm">
+            <div class="form-group">
+                <label for="taluka">Taluka</label>
+                <input type="text" id="taluka" name="taluka" required>
+            </div>
+            <div class="form-group">
+                <label for="district">District</label>
+                <select id="district" name="district" required>
+                    <option value=""></option>
+                    <option value="North Goa">North Goa</option>
+                    <option value="South Goa">South Goa</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="submit">Save</button>
+                <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('talukaForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+
+            fetch('http://localhost:3000/submit-taluka-form', { // Updated endpoint
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData.entries())),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+                return response.text(); // or response.json() if server returns JSON
+            })
+            .then(data => {
+                console.log(data);
+                alert('Taluka form submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`Duplicate entry: ${error.message}`);
+            });
+        });
+    </script>
+</body>
+</html>

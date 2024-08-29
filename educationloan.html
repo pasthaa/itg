@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #008CBA;
+        color: white;
+        padding: 10px;
+    }
+    .nav {
+        background-color: #008CBA;
+        color: white;
+        padding: 10px;
+    }
+    .nav a {
+        color: white;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+    .form-container {
+        padding: 20px;
+    }
+    .form-section {
+        border: 1px solid #bdc3c7;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+    .form-row {
+        display: flex;
+        margin-bottom: 10px;
+        gap:20px;
+    }
+    .form-group {
+        margin-right: 20px;
+    }
+    .form-group.full-width {
+        flex-basis: 100%; 
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="text"], select {
+        width: 150px;
+        padding: 3px;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        border: 1px solid #bdc3c7;
+        padding: 5px;
+    }
+    .buttons {
+        margin-top: 20px;
+    }
+    .buttons button {
+        margin-right: 10px;
+    }
+    .form-group-radio {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .hint {
+        font-size: 12px;
+        color: #666;
+        display: block;
+        margin-top: 5px;
+    }
+    #addRowButton {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #addRowButton:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+    
+    select, input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    input[type="checkbox"] {
+        margin: 0 auto;
+        display: block;
+    }
+    
+    .deleteRowButton {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 4px 8px;
+    }
+    
+    .deleteRowButton:hover {
+        background-color: #c82333;
+    }
+   
+    
+    h3 {
+        margin-top: 30px;
+        font-size: 1.2em;
+        color: #333;
+    }
+    
+    form textarea {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    form textarea {
+        resize: vertical;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px; 
+        margin-top: 20px; 
+            }
+    
+    .buttons button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .buttons button:hover {
+        background-color: #0056b3;
+    }
+    .large-textbox {
+        width: 15000px; /* Set the width to 400 pixels */
+        padding: 10px;
+        font-size: 16px;
+    }
+</style>
+<body>
+    <div class="header">
+        <h1>Loan Management System</h1>
+    </div>
+    <div class="nav">
+        <a href="home.html">Home</a> 
+    </div>
+    <div class="form-container">
+        <h2>Education Loan</h2>
+        <form>
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salutation">Salutation</label>
+                        <select id="salutation" name="salutation">
+                            <option value=""></option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Miss">Miss.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName">
+                    </div>
+                </div>
+            <div class="form-row">
+                <div class="form-group full width">
+                    <label for="Fathersname">Father's name/Husband's name*</label>
+                    <input type="text" id="fathersname" name="fathersname">
+                </div>
+                <div class="form-group full width">
+                    <label for="Address">Address*</label>
+                    <input type="text" id="Address" name="Address">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age*</label>
+                    <input type="text" id="age" name="age" readonly>
+            </div>   
+            <div class="form group">
+                <label>Gender*</label>
+                <div class="form-group-radio">
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </div>
+            </div>
+            <div>
+                <label for="mobilenumber">Mobile number*</label>
+                <input type="text" id="mobilenumber" name="mobilenumber">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            <div>
+                <label for="alternate">Alternate number</label>
+                <input type="text" id="alternate" name="alternate">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category*</label>
+                    <div class="form-group-radio">
+                        <input type="radio" id="SC" name="category" value="SC">
+                        <label for="SC">SC</label>
+                        <input type="radio" id="OBC" name="category" value="OBC">
+                        <label for="OBC">OBC</label>
+                        <input type="radio" id="Handicapped" name="category" value="Handicapped">
+                        <label for="Handicapped">Handicapped</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Numberofmember">Number of family members</label>
+                    <input type="text" id="Numberofmember" name="Numberofmember">
+                </div>
+                <div class="form-group">
+                    <label for="village">Village/City*</label>
+                    <select id="village" name="village">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <script>
+                    fetch('http://localhost:3000/get-village-form')
+                        .then(response => response.text()) // Read response as text first
+                        .then(text => {
+                            try {
+                                const data = JSON.parse(text); // Attempt to parse JSON
+                                const dropdown = document.getElementById('village');
+                                if (dropdown) {
+                                    data.forEach(item => {
+                                        const option = document.createElement('option');
+                                        option.value = item.village_name; // Use the appropriate property
+                                        option.textContent = item.village_name; // Use the appropriate property
+                                        dropdown.appendChild(option);
+                                    });
+                                } else {
+                                    console.error('Dropdown element not found');
+                                }
+                            } catch (error) {
+                                console.error('Error parsing JSON:', error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching villages:', error);
+                        });
+                    </script>
+                <div class="form-group">
+                    <label for="Pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode">
+                    <span class="hint">(6 digits eg: 4XXXXX)</span>
+                </div>
+                <div>
+                    <label for="email">Email id</label>
+                    <input type="email" id="email" name="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="caste">Caste/Sub caste*</label>
+                    <input type="text" id="caste" name="caste">
+                </div>
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation">
+                </div>
+            </div>
+            <script>
+                document.getElementById('dob').addEventListener('input', calculateAge);
+        
+                function calculateAge() {
+                    const dob = document.getElementById('dob').value;
+                    if (!dob) {
+                        document.getElementById('age').value = '';
+                        return;
+                    }
+        
+                    const dobDate = new Date(dob);
+                    const today = new Date();
+                    let age = today.getFullYear() - dobDate.getFullYear();
+                    const monthDifference = today.getMonth() - dobDate.getMonth();
+                    const dayDifference = today.getDate() - dobDate.getDate();
+        
+                    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                        age--;
+                    }
+        
+                    document.getElementById('age').value = age;
+                }
+            </script>
+            </div>
+            </div>
+            </form>
+            <div class="form-container">
+                <h3>Previous Examination Details (Class X onwards)</h3>
+                <div class="form-section">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Exam/Course name*</th>
+                                <th>Year completed</th>
+                                <th>Name of institution/University</th>
+                                <th>Total marks*</th>
+                                <th>Marks obtained*</th>
+                                <th>(%) of marks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><input type="text" name="exam_name"></td>
+                                <td><input type="year" name="year_completed"></td>
+                                <td><input type="text" name="institution_name"></td>
+                                <td><input type="number" name="total_marks"></td>
+                                <td><input type="number" name="marks_obtaines"></td>
+                                <td><input type="number" name="total_marks"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-container">
+                <h3>Particulars of Course Applied</h3>
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course_name">Name of the course*</label>
+                            <input type="text" id="course_name" name="course_name">
+                        </div>
+                        <div>
+                            <label for="commencement_date">Date of commencement of course</label>
+                            <input type="date" id="commencement_date" name="commencement_date">
+                        </div>
+                        <div>
+                            <label for="completion date">Date of completion*</label>
+                            <input type="date" id="completion_date" name="completion_date">
+                        </div>
+                        <div>
+                            <label>Location of course</label>
+                            <div class="form-group-radio">
+                                <input type="radio" id="india" name="course_location" value="india">
+                                <label for="india">India</label>
+                                <input type="radio" id="abroad" name="course_location" value="abroad">
+                                <label for="abroad">Abroad</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course_duration">Course duration (in years)</label>
+                            <input type="number" id="course_duration" name="course_duration">
+                        </div>
+                        <div>
+                            <label for="job_opportunities">Job opportunities(post completion of course)</label>
+                            <textarea id="job_opportunities" name="job_opportunities"></textarea>
+                        </div>
+                        <div>
+                            <label>Type of course</label>
+                            <div class="form-group-radio">
+                            <input type="radio" id="engineering" name="course_type">
+                            <label for="engineering">Engineering</label>
+                            <input type="radio" id="management" name="course_type">
+                            <label for="management">Management</label>
+                            <input type="radio" id="Medical" name="course_type">
+                            <label for="medical">Medical</label>
+                            <input type="radio" id="others" name="course_type">
+                            <label for="others">Others</label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution_name">Name of institution/University*</label>
+                            <input type="text" id="institution_name" name="institution_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="institution_address">Institution/University address</label>
+                            <textarea id="institution_address" name="institution_address"></textarea>
+                        </div>
+                    <div class="form-group">
+                        <label for="monthly_income">Expected monthly income(in Rs) (post completionpf course)</label>
+                        <input type="number" id="monthly_income" name="monthly_income">
+                    </div>
+                </div>
+                <label>Admission status</label>
+                <div class="form-group-radio">
+                    <input type="radio" id="confirmed" name="admission_status">
+                    <label for="confirmed">Confirmed</label>
+                    <input type="radio" id="awaiting" name="admission_status">
+                    <label for="awaiting">Awaiting</label>
+                </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <h3>Particulars of Parent/Guardian</h3>
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="parent_name">Parent/Guardian first name*</label>
+                            <input type="text" id="parent_name" name="parent_name" class="large-textbox">
+                        </div>
+                        <div>
+                            <label for="middle_name">Middle name</label>
+                            <input type="text" id="middle_name" name="middle_name" class="large-textbox">
+                        </div>
+                        <div>
+                            <label for="last_name">Last name*</label>
+                            <input type="text" id="last_name" name="last_name" class="large-textbox">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="relation">Relationship with student</label>
+                            <input type="text" id="relation" name="relation">
+                        </div>&nbsp;&nbsp;
+                        <div>
+                            <label for="employer_name">Name of employer/business</label>
+                            <input type="text" id="employer_name" name="employer_name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="father_name">Father/Husbands name*</label>
+                            <input type="text" id="father_name" name="father_name">
+                        </div>
+                        <div>
+                            <label for="employer_address">Address of the employer</label>
+                            <input type="text" id="employer_address" name="employer_address" class="large-textbox">
+                        </div>
+                        <div>
+                            <label for="landline_no">Landline No.(work)</label>
+                            <input type="text" id="landline_no" name="landline_no">
+                            <span class="hint">(7 digits eg:2XXXXXX)</span>
+                        </div>
+                        <div>
+                            <label for="extn">Extn.</label>
+                            <input type="text" id="extn" name="extn">
+                            <span class="hint">4 digits (Eg:XXXX)</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label>Occupation</label>
+                    </div>
+                        <div class="form-row">
+                        <div class="form-group-radio">
+                            <input type="radio" id="employed" name="employed">
+                            <label for="employed">Employed</label>
+                            <input type="radio" id="self_employed" name="self_employed">
+                            <label for="self_employed">Self employed</label>
+                            <input type="radio" id="retired" name="retired">
+                            <label for="retired">Retired</label>
+                        </div>&nbsp;&nbsp;
+                        <div>
+                            <label for="parent_number">Mobile number</label>
+                            <input type="text" id="parent_number" name="parent_number">
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <h3>Particulars of course expenses(in Rs)</h3>
+                <div class="form-section">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Year*</th>
+                                <th>Tuition fees</th>
+                                <th>Admission and other fees</th>
+                                <th>Text book, instruments</th>
+                                <th>Living expenses</th>
+                                <th>total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><label for="year1">Year: <input type="year" id="year1" name="year1"></label></td>
+                                    <td><label for="tuition_fee1">Tuition Fee: <input type="text" id="tuition_fee1" name="tuition_fee1"></label></td>
+                                    <td><label for="admission_fee1">Admission Fee: <input type="text" id="admission_fee1" name="admission_fee1"></label></td>
+                                    <td><label for="stationary_fee1">Stationary Fee: <input type="text" id="stationary_fee1" name="stationary_fee1"></label></td>
+                                    <td><label for="living_expense1">Living Expense: <input type="text" id="living_expense1" name="living_expense1"></label></td>
+                                    <td><label for="total1">Total: <input type="text" id="total1" name="total1" placeholder="0.00"></label></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><label for="year2">Year: <input type="year" id="year2" name="year2"></label></td>
+                                    <td><label for="tuition_fee2">Tuition Fee: <input type="text" id="tuition_fee2" name="tuition_fee2"></label></td>
+                                    <td><label for="admission_fee2">Admission Fee: <input type="text" id="admission_fee2" name="admission_fee2"></label></td>
+                                    <td><label for="stationary_fee2">Stationary Fee: <input type="text" id="stationary_fee2" name="stationary_fee2"></label></td>
+                                    <td><label for="living_expense2">Living Expense: <input type="text" id="living_expense2" name="living_expense2"></label></td>
+                                    <td><label for="total2">Total: <input type="text" id="total2" name="total2" placeholder="0.00"></label></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><label for="year3">Year: <input type="year" id="year3" name="year3"></label></td>
+                                    <td><label for="tuition_fee3">Tuition Fee: <input type="text" id="tuition_fee3" name="tuition_fee3"></label></td>
+                                    <td><label for="admission_fee3">Admission Fee: <input type="text" id="admission_fee3" name="admission_fee3"></label></td>
+                                    <td><label for="stationary_fee3">Stationary Fee: <input type="text" id="stationary_fee3" name="stationary_fee3"></label></td>
+                                    <td><label for="living_expense3">Living Expense: <input type="text" id="living_expense3" name="living_expense3"></label></td>
+                                    <td><label for="total3">Total: <input type="text" id="total3" name="total3" placeholder="0.00"></label></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="form-section">
+                    <h3>Means of finance</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="apexbody">Apex body name</label>
+                            <select id="apexbody" name="apexbody">
+                                <option value=""></option>
+                                <option value=""></option>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description(in Rs)</label>
+                            <select id="description" name="description">
+                                <option value=""></option>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label for="schemename">Scheme name</label>
+                        <select id="schemename" name="schemename">
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                        </div>
+                        <script>
+                        </script>
+                        <div class="form-group">
+                        <label for="loanamount">Required loan amount(in Rs)</label>
+                        <input type="text" id="loanamount" name="loanamount">
+                    </div>
+                    <div class="form-group">
+                        <label for="approvedamount">Approved amount(in Rs)</label>
+                        <input type="number" id="approvedamount" name="approvedamount">
+                    </div>
+                    <div class="form-group">
+                        <label for="interesterate">Rate of interest(%)</label>
+                        <input type="number" id="interestrate" name="interestname">
+                    </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scashare">SCA Share(%)</label>
+                            <input type="text" id="scashare" name="scashare">
+                        </div>
+                        <div class="form-group">
+                            <label for="scacontri">SCA Contribution(in Rs)</label>
+                            <input type="number" id="scacontri" name="scacontri">
+                        </div>
+                        <div class="form-group">
+                            <label for="Promotershare">Promoter's share(%)</label>
+                            <input type="text" id="Promotershare" name="Promotershare">
+                        </div>
+                        <div class="form-group">
+                            <label for="promotercontri">Promoter Contribution(Rs)</label>
+                            <input type="text" id="promotercontri" name="promotercontri">
+                        </div>
+                        <div class="form-group">
+                            <label for="apexshare">Apex share(%)</label>
+                            <input type="text" id="apexshare" name="apexshare">
+                        </div>
+                        <div class="form-group">
+                            <label for="apexcontri">Apex contribution(in Rs)</label>
+                            <input type="text" id="apexcontri" name="apexcontri">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="available_repayment_period">Available repayment period(in months)</label>
+                            <input type="text" id="available_repayment_period" name="available_repayment_period">
+                        </div>
+                        <div class="form-group">
+                            <label for="repaymentperiod">Repayment period</label>
+                            <input type="text" id="repaymentperiod" name="repaymentperiod">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="form-container">
+                    <h3>Details of funds available</h3>
+                    <div class="form-section">
+                        <div class="form-row">
+                        <div class="form-group">
+                            <label for="ownsource_fund">funds from own sources(in Rs)</label>
+                            <input type="text" id="ownsource_fund" name="ownsource_fund">
+                        </div>
+                        <div>
+                            <label for="scholarship_name">Name of scholarship/fellowship</label>
+                            <input type="text" id="scholarship_name" name="scholarshp_name">
+                        </div>
+                        <div>
+                            <label for="institution_name">Name of instituition</label>
+                            <input type="text" id="instituition_name" name="institution_name">
+                        </div>
+                        <div>
+                            <label for="scholarship_amount">Scholarship amount</label>
+                            <input type="text" id="scholarship_amount" name="scholarship_amount">
+                        </div>
+                        <div>
+                            <label for="scholarship_duration">Duration of scholarship (in years)</label>
+                            <input type="year" id="scholarship_duration" name="scholarship_duration">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="form-container">
+                    <h3>Details of existing repayable loan</h3>
+                    <div class="form-section">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Description</th>
+                                    <th>Outstanding amount (in Rs)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <h3>Details of requirement of loan</h3>
+                    <div class="form-section">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Amount required (in rs)</th>
+                                    <th>Due date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <h3>Details of Additional security</h3>
+                    <div class="form-section">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Security provided by</th>
+                                    <th>Type</th>
+                                    <th>Other assests</th>
+                                    <th>Particulars of security</th>
+                                    <th>Market value of security</th>
+                                    <th>Any liabilitites</th>
+                                    <th>Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><input type="text" name="security_provided"></td>
+                                    <td><input type="text" name="type"></td>
+                                    <td><input type="text" name="other_assests"></td>
+                                    <td><input type="text" name="particular_security"></td>
+                                    <td><input type="text" name="market_value"></td>
+                                    <td><input type="text" name="liability"></td>
+                                    <td><input type="text" name="comments"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div class="form-section">
+                            <div class="form-group">
+                                <h3>Surety details</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Salutation</th>
+                                <th>Surety name*</th>
+                                <th>Gender*</th>
+                                <th>Father/Husband's name*</th>
+                                <th>Company name*</th>
+                                <th>Designation</th>
+                                <th>Salary drawn per month (in Rs)</th> 
+                                <th>Mobile no.</th>
+                                <th>Address</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" name="salutation"></td>
+                            <td><input type="text" name="surety_name"></td>
+                            <td><input type="text" name="gender"></td>
+                            <td><input type="text" name="father_name"></td>
+                            <td><input type="text" name="company_name" ></td>
+                            <td><input type="text" name="designation"></td>
+                            <td><input type="text" name="salary_drawn"></td>
+                            <td><input type="number" name="mobile_no"></td>
+                            <td><textarea id="address" name="address"></textarea></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div class="form-section">
+                    <h2>List of Documents Submitted (** Please Check on Submitted check box for the documents you have submitted)</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Documents</th>
+                                <th>Submitted</th>
+                                <th>Description</th>
+                                <th>Upload</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <select name="document1">
+                                        <option>Birth Certificate or School Leaving Certificate (Attested) (Age:18-55 Years)</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted1"></td>
+                                <td><input type="text" name="description1"></td>
+                                <td><input type="file" accept=".jpeg" name="file1"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <select name="document2">
+                                        <option>Income Certificate issued by Sarpanch/Chief Officer concerned.</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted2"></td>
+                                <td><input type="text" name="description2"></td>
+                                <td><input type="file" accept=".jpeg" name="file2"></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <select name="document3">
+                                        <option>Caste Certificate issued by Dy. Collector/ 40% Disability Certificate in case of.</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted3"></td>
+                                <td><input type="text" name="description3"></td>
+                                <td><input type="file" accept=".jpeg" name="file3"></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    <select name="document4">
+                                        <option>Residence Certificate (15 years).</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted4"></td>
+                                <td><input type="text" name="description4"></td>
+                                <td><input type="file" accept=".jpeg" name="file4"></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>
+                                    <select name="document5">
+                                        <option>Ration Card.</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted5"></td>
+                                <td><input type="text" name="description5"></td>
+                                <td><input type="file" accept=".jpeg" name="file5"></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>
+                                    <select name="document6">
+                                        <option>Passport size Photographs (Two).</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted6"></td>
+                                <td><input type="text" name="description6"></td>
+                                <td><input type="file" accept=".jpeg" name="file6"></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>
+                                    <select name="document7">
+                                        <option>Technical/Educational qualification Certificate, if any.</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted7"></td>
+                                <td><input type="text" name="description7"></td>
+                                <td><input type="file" accept=".jpeg" name="file7"></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>
+                                    <select name="document8">
+                                        <option>Driving License, Badge No. in case of Tourist vehicles.</option>
+                                    </select>
+                                </td>
+                                <td><input type="checkbox" name="submitted8"></td>
+                                <td><input type="text" name="description8"></td>
+                                <td><input type="file" accept=".jpeg" name="file8"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                    <script>
+                    function addRow() {
+                        const table = document.querySelector("table tbody");
+                        const rowCount = table.rows.length + 1;
+                        const newRow = `
+                            <tr>
+                                <td>${rowCount}</td>
+                                <td><select name="document${rowCount}"><option>New Document ${rowCount}</option></select></td>
+                                <td><input type="checkbox" name="submitted${rowCount}"></td>
+                                <td><input type="text" name="description${rowCount}"></td>
+                                <td><input type="file" accept=".jpeg" name="file${rowCount}"></td>
+                            </tr>`;
+                        table.insertAdjacentHTML('beforeend', newRow);
+                    }
+                </script>
+                <div class="form-group-radio">
+                    <input type="radio" id="confirmation" name="confirmation" value="confirmation">
+                    <label for="undertaking">I certify that to the best of my knowledge and belief, the information furnished herein is true and correct. I promise to abide by the terms and conditions governing the loan facility of your corporation.</label>
+                </div>
+                <div class="buttons">
+                    <button type="submit">Submit Application</button>
+                    <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+                </div>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Management System - House Repair Loan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .form-container {
+            padding: 20px;
+        }
+        .form-section {
+            border: 1px solid #bdc3c7;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .form-row {
+            display: flex;
+            margin-bottom: 10px;
+            gap:20px;
+        }
+        .form-group {
+            margin-right: 20px;
+        }
+        .form-group.full-width {
+            flex-basis: 100%; 
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], select {
+            width: 150px;
+            padding: 3px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #bdc3c7;
+            padding: 5px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin-right: 10px;
+        }
+        .form-group-radio {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hint {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+        #addRowButton {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #addRowButton:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        input[type="checkbox"] {
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .deleteRowButton {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        
+        .deleteRowButton:hover {
+            background-color: #c82333;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Adds space between the buttons */
+            margin-top: 20px; /* Adds space above the buttons */
+        }
+        
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Loan Management System</h1>
+    </div>
+    <div class="nav">
+        <a href="home.html">Home</a>
+        
+    </div>
+    <div class="form-container">
+        <h2>House Repair Loan</h2>
+        <form id="myForm" action="process_loan_application.php" method="POST" enctype="multipart/form-data">
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salutation">Salutation</label>
+                        <select id="salutation" name="salutation">
+                            <option value=""></option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Miss">Miss.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" autocomplete="given-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName" autocomplete="additional-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" autocomplete="family-name">
+                    </div>
+                    
+                </div>
+            <div class="form-row">
+                <div class="form-group full width">
+                    <label for="fathersname">Father's name/Husband's name*</label>
+                    <input type="text" id="fathersname" name="fathersname" autocomplete="family-name">
+                </div>
+                <div class="form-group full width">
+                    <label for="Address">Address*</label>
+                    <textarea id="Address" name="Address"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob" autocomplete="bday">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age*</label>
+                    <input type="text" id="age" name="age" readonly>
+            </div>
+                    
+            <div class="form group">
+                <label>Gender*</label>
+                <div class="form-group-radio">
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </div>
+                
+            </div>
+            <div>
+                <label for="mobilenumber">Mobile number*</label>
+                <input type="text" id="mobilenumber" name="mobilenumber" autocomplete="tel">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            <div>
+                <label for="alternate">Alternate number</label>
+                <input type="text" id="alternate" name="alternate" autocomplete="tel">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category*</label>
+                    <div class="form-group-radio">
+                        <input type="radio" id="SC" name="category" value="SC">
+                        <label for="SC">SC</label>
+                        <input type="radio" id="OBC" name="category" value="OBC">
+                        <label for="OBC">OBC</label>
+                        <input type="radio" id="Handicapped" name="category" value="Handicapped">
+                        <label for="Handicapped">Handicapped</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Numberofmember">Number of family members</label>
+                    <input type="text" id="Numberofmember" name="Numberofmember">
+                </div>
+                <div class="form-group">
+                    <label for="village">Village/City*</label>
+                    <select id="village" name="village">
+                        <option value=""></option>
+                    </select>
+                </div>
+                
+                <script>
+                 fetch('http://localhost:3000/get-village-form')
+                .then(response => response.text()) // Read response as text first
+                .then(text => {
+        try {
+            const data = JSON.parse(text); // Attempt to parse JSON
+            const dropdown = document.getElementById('village');
+            if (dropdown) {
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.village_name; // Use the appropriate property
+                    option.textContent = item.village_name; // Use the appropriate property
+                    dropdown.appendChild(option);
+                });
+            } else {
+                console.error('Dropdown element not found');
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching villages:', error);
+    });
+</script>
+
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode" autocomplete="postal-code">
+                    <span class="hint">(6 digits eg: 4XXXXX)</span>
+                </div>
+                <div>
+                    <label for="email">Email id</label>
+                    <input type="email" id="email" name="email" autocomplete="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="caste">Caste/Sub caste*</label>
+                    <input type="text" id="caste" name="caste">
+                </div>
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation">
+                </div>
+                <div class="form-group">
+                    <label for="apex_share">Apex share release</label>
+                    <select id="apex_share" name="apex_share">
+                        <option value="">Select apex share release</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="application_date">Date of application</label>
+                    <input type="date" id="application_date" name="application_date">
+                </div>
+            </div>
+            <script>
+                // Fetch apex share data and populate the dropdown
+                fetch('http://localhost:3000/get-apex-shares')
+                    .then(response => response.json())
+                    .then(data => {
+                        const dropdown = document.getElementById('apex_share');
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.apex_share_release; // or other relevant property
+                            option.textContent = item.apex_share_release; // or other relevant property
+                            dropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching apex shares:', error);
+                    });
+            </script>
+               
+            <script>
+                document.getElementById('dob').addEventListener('input', calculateAge);
+        
+                function calculateAge() {
+                    const dob = document.getElementById('dob').value;
+                    if (!dob) {
+                        document.getElementById('age').value = '';
+                        return;
+                    }
+        
+                    const dobDate = new Date(dob);
+                    const today = new Date();
+                    let age = today.getFullYear() - dobDate.getFullYear();
+                    const monthDifference = today.getMonth() - dobDate.getMonth();
+                    const dayDifference = today.getDate() - dobDate.getDate();
+        
+                    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                        age--;
+                    }
+        
+                    document.getElementById('age').value = age;
+                }
+            </script>
+            </div>
+                
+            </div>
+           <div class="form-container">
+            <div class="form-section">
+                <h3>House Details</h3>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Title of ownership of house</label>
+                            <div class="form-group-radio">
+                                <input type="radio" id="mundakrial" name="ownershiptitle" value="mundakrial">
+                                <label for="mundakrial">Mundakrial</label>
+                                <input type="radio" id="own" name="ownershiptitle" value="own">
+                                <label for="own">Own</label>
+                                <input type="radio" id="ancestral" name="ownershiptitle" value="ancestral">
+                                <label for="ancestral">Ancestral</label>
+                                <input type="radio" id="leasehold" name="ownershiptitle" value="leasehold">
+                                <label for="leasehold">Leasehold</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Whether separate family Unit(s) Staying in same house</label>
+                            <div class="form-group-radio">
+                                <input type="radio" id="familyunit_yes" name="familyunit_yes" value="yes">
+                                <label for="familyunit_yes">Yes</label>
+                                <input type="radio" id="familyunit_no" name="familyunit_no" value="no">
+                                <label for="familyunit_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Whether N.O.C obtained from the seperate unit(s)</label>
+                            <div class="form-group-radio">
+                                <input type="radio" id="noc_yes" name="noc_yes" value="noc_yes">
+                                <label for="noc_yes">Yes</label>
+                                <input type="radio" id="noc_no" name="noc_no" value="noc_no">
+                                <label for="noc_no">No</label>
+                        </div>
+                    </div>
+                </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="area">Total area of the house or area occupied(in sq.mts)</label>
+                            <input type="text" id="area" name="area">
+                        </div>
+                        <div class="form-group">
+                            <label for="repairarea">Apprx. area proposed for repairs</label>
+                            <input type="text" id="repairarea" name="repairarea">
+                        </div>
+                    </div>
+                
+                </form>
+            </div>
+           </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Nature of proposed repair works (in Rs.)</h3>
+                <table>
+                    <tr>
+                        <th>House Needs</th>
+                        <th>Cost of Repairs</th>
+                        <th>House Needs</th>
+                        <th>Cost of Repairs</th>
+                    </tr>
+                    <tr>
+                        <td> Structural Repairs</td>
+                        <td><input type="number" id="cost-structural-repairs" name="cost-structural-repairs" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                        <td>Roofing</td>
+                        <td><input type="number" id="cost-roofing" name="cost-roofing" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                    </tr>
+                    <tr>
+                        <td> Plastering</td>
+                        <td><input type="number" id="cost-plastering" name="cost-plastering" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                        <td>Extension of House</td>
+                        <td><input type="number" id="cost-extension" name="cost-extension" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                    </tr>
+                    <tr>
+                        <td> Painting</td>
+                        <td><input type="number" id="cost-painting" name="cost-painting" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                        <td> Others</td>
+                        <td><input type="number" id="cost-others" name="cost-others" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                    </tr>
+                    <tr>
+                        <td> Floor Tiling</td>
+                        <td><input type="number" id="cost-floor-tiling" name="cost-floor-tiling" value="0.00" step="0.01" onchange="calculateTotal()"></td>
+                        <td>Total Cost</td>
+                        <td><input type="number" id="total-cost" name="total-cost" value="0.00" step="0.01" readonly></td>
+                    </tr>
+                </table>
+                
+                <script>
+                    function calculateTotal() {
+                        let totalCost = 0;
+                        const inputs = document.querySelectorAll('input[type="number"][id^="cost-"]');
+                        
+                        inputs.forEach(input => {
+                            if (input.value) {
+                                totalCost += parseFloat(input.value);
+                            }
+                        });
+                
+                        document.getElementById('total-cost').value = totalCost.toFixed(2);
+                    }
+                </script>
+                
+            </div>
+            </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Means of Finance</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apexbody">Apex body name</label>
+                        <select id="apexbody" name="apexbody">
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <select id="description" name="description">
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="schemename">Scheme name</label>
+                        <select id="schemename" name="schemename">
+                            <option value="">Select a scheme</option>
+                        </select>
+                    </div>
+                                
+                    <script>
+                        
+                    </script>
+                    <div class="form-group">
+                    <label for="loanamount">Required loan amount(in Rs)</label>
+                    <input type="text" id="loanamount" name="loanamount">
+                </div>
+                <div class="form-group">
+                    <label for="approvedamount">Approved amount(in Rs)</label>
+                    <input type="number" id="approvedamount" name="approvedamount">
+                </div>
+                <div class="form-group">
+                    <label for="interestrate">Rate of interest(%)</label>
+                    <input type="number" id="interestrate" name="interestrate">
+                </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scashare">SCA Share(%)</label>
+                        <input type="text" id="scashare" name="scashare">
+                    </div>
+                    <div class="form-group">
+                        <label for="scacontri">SCA Contribution(in Rs)</label>
+                        <input type="number" id="scacontri" name="scacontri">
+                    </div>
+                    <div class="form-group">
+                        <label for="Promotershare">Promoter's share(%)</label>
+                        <input type="text" id="Promotershare" name="Promotershare">
+                    </div>
+                    <div class="form-group">
+                        <label for="promotercontri">Promoter Contribution(Rs)</label>
+                        <input type="text" id="promotercontri" name="promotercontri">
+                    </div>
+                    <div class="form-group">
+                        <label for="apexshare">Apex share(%)</label>
+                        <input type="text" id="apexshare" name="apexshare">
+                    </div>
+                    <div class="form-group">
+                        <label for="apexcontri">Apex contribution(in Rs)</label>
+                        <input type="text" id="apexcontri" name="apexcontri">
+                    </div>
+                </div>
+            
+                <div>
+                    <h4>Proposed repayment schedule</h4>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="available_repayment_period">Available repayment period(in months)</label>
+                        <input type="text" id="available_repayment_period" name="available_repayment_period">
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentperiod">Repayment period</label>
+                        <input type="text" id="repaymentperiod" name="repaymentperiod">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Surety details</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Salutation</th>
+                            <th>Surety name*</th>
+                            <th>Gender*</th>
+                            <th>Father/Husband's name*</th>
+                            <th>Company name*</th>
+                            <th>Designation</th>
+                            <th>Salary drawn per month (in Rs)</th> 
+                            <th>Mobile no.</th>
+                            <th>Address</th> 
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" name="salutation" id="salutation1"></td>
+                        <td><input type="text" name="surety_name" id="surety_name1">  </td>
+                        <td><input type="text" name="gender" id="gender1"></td>
+                        <td><input type="text" name="father_name" id="father_name1"></td>
+                        <td><input type="text" name="company_name" id="company_name1"></td>
+                        <td><input type="text" name="designation" id="designation1"></td>
+                        <td><input type="text" name="salary_permonth" id="salary_permonth1"></td>
+                        <td><input type="number" name="mobile_no" id="mobile_no1"></td>
+                        <td><textarea id="address1" name="address1"></textarea></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            
+            <div class="form-container">
+                <h2>List of Documents Submitted (** Please Check on Submitted check box for the documents you have submitted)</h2>
+            
+                <table id="documentsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Documents</th>
+                            <th>Submitted</th>
+                            <th>Description</th>
+                            <th>Upload</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="row1">
+                            <td>1</td>
+                            <td>
+                                <select name="document1">
+                                    <option>Birth Certificate or School Leaving Certificate (Attested) (Age:18-55 Years)</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted1" id="submitted1"></td>
+                            <td><input type="text" name="description1" id="description1"></td>
+                            <td><input type="file" accept=".jpeg" name="file1" id="file1"></td>
+                        </tr>
+                        <tr id="row2">
+                            <td>2</td>
+                            <td>
+                                <select name="document2">
+                                    <option>Income Certificate issued by Sarpanch/Chief Officer concerned.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted2" id="submitted2"></td>
+                            <td><input type="text" name="description2" id="description2"></td>
+                            <td><input type="file" accept=".jpeg" name="file2" id="file2"></td>
+                        </tr>
+                        <tr id="row3">
+                            <td>3</td>
+                            <td>
+                                <select name="document3">
+                                    <option>Caste Certificate issued by Dy. Collector/ 40% Disability Certificate in case of.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted3" id="submitted3"></td>
+                            <td><input type="text" name="description3" id="description3"></td>
+                            <td><input type="file" accept=".jpeg" name="file3" id="file3"></td>
+                        </tr>
+                        <tr id="row4">
+                            <td>4</td>
+                            <td>
+                                <select name="document4">
+                                    <option>Residence Certificate (15 years).</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted4" id="submitted4"></td>
+                            <td><input type="text" name="description4" id="description4"></td>
+                            <td><input type="file" accept=".jpeg" name="file4" id="file4"></td>
+                        </tr>
+                        <tr id="row5">
+                            <td>5</td>
+                            <td>
+                                <select name="document5">
+                                    <option>Ration Card.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted5" id="submitted5"></td>
+                            <td><input type="text" name="description5" id="description5"></td>
+                            <td><input type="file" accept=".jpeg" name="file5" id="file5"></td>
+                        </tr>
+                        <tr id="row6">
+                            <td>6</td>
+                            <td>
+                                <select name="document6">
+                                    <option>Passport size Photographs (Two).</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted6" id="submitted6"></td>
+                            <td><input type="text" name="description6" id="description6"></td>
+                            <td><input type="file" accept=".jpeg" name="file6" id="file6"></td>
+                        </tr>
+                        <tr id="row7">
+                            <td>7</td>
+                            <td>
+                                <select name="document7">
+                                    <option>Technical/Educational qualification Certificate, if any.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted7" id="submitted7"></td>
+                            <td><input type="text" name="description7" id="description7"></td>
+                            <td><input type="file" accept=".jpeg" name="file7" id="file7"></td>
+                        </tr>
+                        <tr id="row8">
+                            <td>8</td>
+                            <td>
+                                <select name="document8">
+                                    <option>Driving License, Badge No. in case of Tourist vehicles.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted8" id="submitted8"></td>
+                            <td><input type="text" name="description8" id="description8"></td>
+                            <td><input type="file" accept=".jpeg" name="file8" id="file8"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <button type="button" onclick="addRow()">Add row</button>
+            </div>
+            
+            <script>
+                function addRow() {
+                    const table = document.getElementById("documentsTable").getElementsByTagName('tbody')[0];
+                    const rowCount = table.rows.length + 1;
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${rowCount}</td>
+                        <td><select name="document${rowCount}"><option>New Document ${rowCount}</option></select></td>
+                        <td><input type="checkbox" name="submitted${rowCount}" id="submitted${rowCount}"></td>
+                        <td><input type="text" name="description${rowCount}" id="description${rowCount}"></td>
+                        <td><input type="file" accept=".jpeg" name="file${rowCount}" id="file${rowCount}"></td>
+                    `;
+                    table.appendChild(newRow);
+                }
+            </script>
+            <div class="form-group-radio">
+                <input type="radio" id="confirmation" name="confirmation" value="confirmation">
+                <label for="confirmation">I certify that to the best of my knowledge and belief, the information furnished herein is true and correct. I promise to abide by the terms and conditions governing the loan facility of your corporation.</label>
+                
+            </div>
+            <div class="buttons">
+                <button id="submit">Submit Application</button>
+                <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+            <div id="error-message" class="error-message"></div>
+        </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Calculate Age
+                    document.getElementById('dob').addEventListener('input', calculateAge);
+            
+                    function calculateAge() {
+                        const dob = document.getElementById('dob').value;
+                        if (!dob) {
+                            document.getElementById('age').value = '';
+                            return;
+                        }
+            
+                        const dobDate = new Date(dob);
+                        const today = new Date();
+                        let age = today.getFullYear() - dobDate.getFullYear();
+                        const monthDifference = today.getMonth() - dobDate.getMonth();
+                        const dayDifference = today.getDate() - dobDate.getDate();
+            
+                        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                            age--;
+                        }
+            
+                        document.getElementById('age').value = age;
+                    }
+            
+                    // Calculate Total Cost
+                    function calculateTotal() {
+                        let totalCost = 0;
+                        const inputs = document.querySelectorAll('input[type="number"][id^="cost-"]');
+            
+                        inputs.forEach(input => {
+                            if (input.value) {
+                                totalCost += parseFloat(input.value);
+                            }
+                        });
+            
+                        document.getElementById('total-cost').value = totalCost.toFixed(2);
+                    }
+                    
+                        document.querySelectorAll('input[name="category"]').forEach(radio => {
+                            radio.addEventListener('change', function() {
+                                const category = this.value;
+                                const schemeNameDropdown = document.getElementById('schemename');
+                                
+                                // Clear existing options
+                                schemeNameDropdown.innerHTML = '<option value="">Select a Scheme</option>';
+                                
+                                if (category) {
+                                    // Fetch scheme names based on category and loan type
+                                    fetch(`http://localhost:3000/api/getSchemes?category=${category}&loantype=Houserepair`)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            data.forEach(scheme => {
+                                                const option = document.createElement('option');
+                                                option.value = scheme.id; // Assuming 'id' is the property for the scheme's ID
+                                                option.textContent = scheme.scheme_name; // Assuming 'scheme_name' is the property for the scheme's name
+                                                schemeNameDropdown.appendChild(option);
+                                            });
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching schemes:', error);
+                                        });
+                                }
+                            });
+                        });
+            
+                    // Event listener for submit button
+                    document.getElementById('myForm').addEventListener('submit', function(event) {
+                        event.preventDefault(); // Prevent the form from submitting the traditional way
+                    
+                        // Create a new FormData object to hold the form data
+                        const formData = new FormData(this);
+                    
+                        // Add descriptions for each file input
+                        const documents = document.getElementById('documentsTable').querySelectorAll('input[type="file"]');
+                        documents.forEach((fileInput, index) => {
+                            const descriptionInput = document.getElementById(`description${index + 1}`);
+                            if (fileInput.files.length > 0) {
+                                formData.append(`description_${fileInput.files[0].name}`, descriptionInput.value);
+                            }
+                        });
+                    
+                        // Send the form data using AJAX
+                        fetch('/api/submitForm', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                // Optionally, you can redirect or reset the form
+                                document.getElementById('myForm').reset();
+                            } else {
+                                document.getElementById('error-message').textContent = 'Failed to submit application: ' + data.message;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error submitting application:', error);
+                            document.getElementById('error-message').textContent = 'An error occurred while submitting the application.';
+                        });
+                    });
+                });
+            </script>     
+</body>
+</html>

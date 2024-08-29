@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #008CBA;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #005f6b;
+        }
+        .cancel-button {
+            background-color: #f44336;
+        }
+        .cancel-button:hover {
+            background-color: #d32f2f;
+        }
+        h2 {
+            color: #008CBA;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group .button {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <div class="button-group">
+                <input type="submit" class="button" value="Register">
+                <button type="button" class="button cancel-button" onclick="window.location.href='login.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('http://localhost:3000/register', { // Update with the correct endpoint
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.statusText}`);
+                }
+                return response.text(); // or response.json() if server returns JSON
+            })
+            .then(data => {
+                console.log(data);
+                alert('Registration successful!');
+                window.location.href = 'login.html'; // Redirect to login page after successful registration
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`The same login credentials exists: ${error.message}`);
+            });
+        });
+    </script>
+</body>
+</html>

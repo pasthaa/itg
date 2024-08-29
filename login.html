@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Loan Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #008CBA;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #005f6b;
+        }
+        h2 {
+            color: #008CBA;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login to Loan Management System</h2>
+        <form id="loginForm">
+            <input type="text" id="email" name="email" placeholder="Enter your email.." required>
+            <br>
+            <input type="password" id="password" name="password" placeholder="Enter your password.." required>
+            <br>
+            <input type="submit" class="button" value="Login">
+            <button type="button" class="button" onclick="window.location.href='sign_up.html'">Sign Up</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://localhost:3000/loginForm', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => {
+                if (response.status === 401) {
+                    alert('Invalid email or password');
+                } else if (response.status === 200) {
+                    alert('Login successful');
+                    window.location.href = '/home.html';
+                } else {
+                    alert('Server error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to login');
+            }); // Closing the .then block correctly
+            
+        }); // Closing the event listener correctly
+    </script>
+</body>
+</html>

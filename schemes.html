@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schemes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .form-section {
+            border: 1px solid #bdc3c7;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            margin-right: 10px;
+        }
+        input[type="text"], select, input[type="number"] {
+            width: 300px;
+            padding: 5px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 5px 20px;
+            margin-right: 10px;
+        }
+        .loan-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .loan-table th, .loan-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .loan-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .loan-table input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: right;
+        }
+        .loan-table input[type="text"] {
+            text-align: left;
+        }
+        .loan-table td:first-child {
+            text-align: center;
+        }
+        .deleteRowButton {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        
+        .deleteRowButton:hover {
+            background-color: #c82333;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Adds space between the buttons */
+            margin-top: 20px; /* Adds space above the buttons */
+        }
+        
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Schemes</h2>
+    </div>
+    <div class="nav">
+        <a href="home.html">Home</a>
+    </div>
+    <div class="form-container">
+        <form id="schemeform">
+            
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="scheme_number">Scheme number*</label>
+                    <input type="text" id="scheme_number" name="scheme_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheme_name">Scheme Name*</label>
+                    <input type="text" id="scheme_name" name="scheme_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="loantype">Type of Loan*</label>
+                    <select id="loantype" name="loantype" required>
+                        <option value="Business">Business</option>
+                        <option value="Education">Education loan</option>
+                        <option value="Houserepair">House repair loan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Applicable To*</label>
+                    <div class="radio">
+                        <input type="radio" id="SC" name="category" value="SC" required>
+                        <label for="SC">SC</label>
+                        <input type="radio" id="OBC" name="category" value="OBC" required>
+                        <label for="OBC">OBC</label>
+                        <input type="radio" id="Handicapped" name="category" value="Handicapped" required>
+                        <label for="Handicapped">Handicapped</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="apexbody">Apex Body Name*</label>
+                    <input type="text" id="apexbody" name="apexbody" required>
+                </div>
+                <div class="form-group">
+                    <label for="abbreviation">Abbreviation</label>
+                    <input type="text" id="abbreviation" name="abbreviation">
+                </div>
+                <div class="form-group">
+                    <label for="fileno">Correspondence File No.*</label>
+                    <input type="text" id="fileno" name="fileno" required>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="active" name="active" value="active">
+                    <label for="active">Active</label>
+                </div>
+            </div>
+            <div class="form-section">
+                <h3>Sector details</h3>
+                <label for="sector">Sector name*</label>
+                <select id="sector" name="sector" required>
+                    <option value=""></option>
+                    <option value="house">House repair loan</option>
+                    <option value="Business">Business</option>
+                    <option value="Abroad">Abroad</option>
+                    <option value="Education">Education</option>
+                </select>
+            </div>
+            <div class="form-section">
+                <h3>Scheme details</h3>
+                <table class="loan-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>From Amount*</th>
+                            <th>To Amount*</th>
+                            <th>Min. (Duration)*</th>
+                            <th>Max. (Duration)*</th>
+                            <th>Repayment Period</th>
+                            <th>Gender</th>
+                            <th>Rate Of Interest (%)*</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schemeDetails">
+                        <tr>
+                            <td>1</td>
+                            <td><input type="number" name="from_amount[]" step="0.01" required></td>
+                            <td><input type="number" name="to_amount[]" step="0.01" required></td>
+                            <td><input type="number" name="min_duration[]" step="0.01" required></td>
+                            <td><input type="number" name="max_duration[]" step="0.01" required></td>
+                            <td><input type="text" name="repayment_period[]"></td>
+                            <td><input type="text" name="gender[]"></td>
+                            <td><input type="number" name="interest_rate[]" step="0.1" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="buttons">
+                <button id="submitButton">Submit Application</button>
+                <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+            <div id="message" style="display: none; padding: 10px; margin-top: 20px;"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent default form submission
+        
+            const category = document.querySelector('input[name="category"]:checked');
+            const from_amounts = document.getElementsByName('from_amount[]');
+            const to_amounts = document.getElementsByName('to_amount[]');
+            const min_durations = document.getElementsByName('min_duration[]');
+            const max_durations = document.getElementsByName('max_duration[]');
+            const repayment_periods = document.getElementsByName('repayment_period[]');
+            const genders = document.getElementsByName('gender[]');
+            const interest_rates = document.getElementsByName('interest_rate[]');
+        
+            const schemeDetails = [];
+            for (let i = 0; i < from_amounts.length; i++) {
+                schemeDetails.push({
+                    from_amount: from_amounts[i].value,
+                    to_amount: to_amounts[i].value,
+                    min_duration: min_durations[i].value,
+                    max_duration: max_durations[i].value,
+                    repayment_period: repayment_periods[i] ? repayment_periods[i].value : "",
+                    gender: genders[i] ? genders[i].value : "",
+                    interest_rate: interest_rates[i].value
+                });
+            }
+        
+            const formData = {
+                scheme_number: document.getElementById('scheme_number').value,
+                scheme_name: document.getElementById('scheme_name').value,
+                loantype: document.getElementById('loantype').value,
+                category: category ? category.value : "",
+                apexbody: document.getElementById('apexbody').value,
+                abbreviation: document.getElementById('abbreviation').value,
+                fileno: document.getElementById('fileno').value,
+                active: document.getElementById('active').checked ? document.getElementById('active').value : "",
+                sector: document.getElementById('sector').value,
+                schemeDetails: schemeDetails
+            };
+            // Check if required fields are filled
+if (!formData.scheme_number || !formData.scheme_name || !formData.loantype || !formData.category) {
+    alert("Please fill all the required fields.");
+    return;
+};
+            // Log the form data to check its content and format
+            console.log('Form Data:', JSON.stringify(formData));
+        
+            try {
+                fetch('http://localhost:3000/submit-schemeform', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    const messageDiv = document.getElementById('message');
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = 'green';
+                    messageDiv.textContent = 'Data has been saved successfully!';
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    const messageDiv = document.getElementById('message');
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = 'red';
+                    messageDiv.textContent = 'An error occurred while saving the data.';
+                });
+            } catch (e) {
+                console.error('Error in JSON conversion:', e);
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'An error occurred while preparing the data.';
+            }
+        });
+        
+                
+    </script>
+</body>
+</html>

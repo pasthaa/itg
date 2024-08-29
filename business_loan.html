@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Management System - House Repair Loan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .form-container {
+            padding: 20px;
+        }
+        .form-section {
+            border: 1px solid #bdc3c7;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .form-row {
+            display: flex;
+            margin-bottom: 10px;
+            gap:20px;
+        }
+        .form-group {
+            margin-right: 20px;
+        }
+        .form-group.full-width {
+            flex-basis: 100%; 
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], select {
+            width: 150px;
+            padding: 3px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #bdc3c7;
+            padding: 5px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin-right: 10px;
+        }
+        .form-group-radio {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hint {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+        #addRowButton {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #addRowButton:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        input[type="checkbox"] {
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .deleteRowButton {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        
+        .deleteRowButton:hover {
+            background-color: #c82333;
+        }
+       
+        
+        h3 {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        
+        form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form textarea {
+            resize: vertical;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; 
+            margin-top: 20px; 
+                }
+        
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Loan Management System</h1>
+    </div>
+    <div class="nav">
+        <a href="home.html">Home</a>
+        
+    </div>
+    <div class="form-container">
+        <h2>Business Loan</h2>
+        <form>
+            <div class="form-section">
+                <h3>Personal Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salutation">Salutation</label>
+                        <select id="salutation" name="salutation">
+                            <option value=""></option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Miss">Miss.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName">
+                    </div>
+                </div>
+            <div class="form-row">
+                <div class="form-group full width">
+                    <label for="Fathersname">Father's name/Husband's name*</label>
+                    <input type="text" id="fathersname" name="fathersname">
+                </div>
+                <div class="form-group full width">
+                    <label for="Address">Address*</label>
+                    <input type="text" id="Address" name="Address">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth*</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age*</label>
+                    <input type="text" id="age" name="age" readonly>
+            </div>
+                    
+            <div class="form group">
+                <label for="gender">Gender*</label>
+                <div class="form-group-radio">
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </div>
+                
+            </div>
+            <div>
+                <label for="Mobilenumber">Mobile number*</label>
+                <input type="text" id="mobilenumber" name="mobilenumber">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            <div>
+                <label for="alternate">Alternate number</label>
+                <input type="text" id="alternate" name="alternate">
+                <span class="hint">10 digits eg:9XXXXXXXXX</span>
+            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category*</label>
+                    <div class="form-group-radio">
+                        <input type="radio" id="SC" name="category" value="SC">
+                        <label for="SC">SC</label>
+                        <input type="radio" id="OBC" name="category" value="OBC">
+                        <label for="OBC">OBC</label>
+                        <input type="radio" id="Handicapped" name="category" value="Handicapped">
+                        <label for="Handicapped">Handicapped</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Numberofmember">Number of family members</label>
+                    <input type="text" id="Numberofmember" name="Numberofmember">
+                </div>
+                <div class="form-group">
+                    <label for="Village">Village/City*</label>
+                    <select id="village" name="village">
+                        <option value=""></option>
+                        
+                    </select>
+                </div>
+                <script>
+                    fetch('http://localhost:3000/get-village-form')
+                        .then(response => response.text()) 
+                        .then(text => {
+                            try {
+                                const data = JSON.parse(text); 
+                                const dropdown = document.getElementById('village');
+                                if (dropdown) {
+                                    data.forEach(item => {
+                                        const option = document.createElement('option');
+                                        option.value = item.village_name; // Use the appropriate property
+                                        option.textContent = item.village_name; // Use the appropriate property
+                                        dropdown.appendChild(option);
+                                    });
+                                } else {
+                                    console.error('Dropdown element not found');
+                                }
+                            } catch (error) {
+                                console.error('Error parsing JSON:', error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching villages:', error);
+                        });
+                    </script>
+                <div class="form-group">
+                    <label for="Pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode">
+                    <span class="hint">(6 digits eg: 4XXXXX)</span>
+                </div>
+                <div>
+                    <label for="Email">Email id</label>
+                    <input type="email" id="email" name="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="caste">Caste/Sub caste*</label>
+                    <input type="text" id="caste" name="caste">
+                </div>
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation">
+                </div>
+            </div>
+               
+            <script>
+                document.getElementById('dob').addEventListener('input', calculateAge);
+        
+                function calculateAge() {
+                    const dob = document.getElementById('dob').value;
+                    if (!dob) {
+                        document.getElementById('age').value = '';
+                        return;
+                    }
+        
+                    const dobDate = new Date(dob);
+                    const today = new Date();
+                    let age = today.getFullYear() - dobDate.getFullYear();
+                    const monthDifference = today.getMonth() - dobDate.getMonth();
+                    const dayDifference = today.getDate() - dobDate.getDate();
+        
+                    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                        age--;
+                    }
+        
+                    document.getElementById('age').value = age;
+                }
+            </script>
+            </div>
+            </div>
+            
+            <form class="form-section">
+                <div class="form-container">
+                <h3>Proposed Activity</h3>
+                <div class="form-row">
+                <form>
+                    <div class="form-group">
+                    <label for="purpose">Purpose of loan required for</label>
+                    <input type="text" id="purpose" name="purpose">
+                    </div> 
+                    <div>
+                        <label for="loan_sector">Business loan sector</label>
+                        <select id="loan_sector" name="loan_sector">
+                            
+                        </select>
+                    </div>
+                    <div>
+                        <label for="location_details">Details of location</label>
+                        <input type="text" id="location_details" name="location_details">
+                    </div>
+                    </div><br>
+                    <div class="form-row">
+                        <div>
+                            <label for="license">Business licence/NOC from competent authority</label>
+                            <input type="text" id="license" name="license">
+                        </div>
+                        <div>
+                            <label for="driving_license">Details of driving license/ Badge no</label>
+                            <input type="text" id="driving_license" name="driving license">
+                        </div>
+                        <div>
+                            <label for="other_document">Any other relevant document</label>
+                            <input type="text" id="other_document" name="other_document">
+                        </div>
+                    </div>
+                </div>
+                </form>
+            
+            </form>
+        
+            
+            <div class="form-container">
+                    <div class="form-section">
+                <h3>Cost of project(Transport)</h3>
+                <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehicle_type">Type of vehicle</label>
+                            <input type="text" id="vehicle_type" name="vehicle_type">
+                        </div>
+                        <div>
+                            <label for="vehicle_cost">Cost of vehicle</label>
+                            <input type="text" id="vehicle_cost" name="vehicle_cost">
+                        </div>
+                        <div>
+                            <label for="vehicle_number">Number of vehicle</label>
+                            <input type="text" id="vehicle_number" name="vehicle_number" placeholder="0">
+                        </div>
+                        <div>
+                            <label for="vehicle_totalcost">Total cost of vehicle</label>
+                            <input type="text" id="vehicle_totalcost" name="vehicle_totalcost" placeholder="0.00">
+                        </div>
+                        <div>
+                            <label for="insurance">Insurance</label>
+                            <input type="text" id="insurance" name="insurance">
+                        </div>
+                        <div>
+                            <label for="road_tax">Road tax</label>
+                            <input type="text" id="road_tax" name="road_tax">
+                        </div>
+                        <div>
+                            <label for="project_cost">Total cost of project</label>
+                            <input type="text" id="project_cost" name="project_cost" placeholder="0.00">
+                        </div>
+                    
+                </div>
+                </div>
+            </div>   
+
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Cost of project(Transport)(in Rs)</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Fixed assets</th>
+                            <th>Raw material</th>
+                            <th>Working capital</th>
+                            <th>Other expenses</th>
+                            <th>Total cost of project</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Means of finance</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apexbody">Apex body name</label>
+                        <select id="apexbody" name="apexbody">
+                            <option value=""></option>
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description(in Rs)</label>
+                        <select id="description" name="description">
+                            <option value=""></option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                    <label for="schemename">Scheme name</label>
+                    <select id="schemename" name="schemename">
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select>
+                    </div>
+                    <script>
+                    document.querySelectorAll('input[name="category"]').forEach(radio => {
+                        radio.addEventListener('change', function() {
+                            const category = this.value;
+                            const schemeNameDropdown = document.getElementById('schemename');
+                            
+                            // Clear existing options
+                            schemeNameDropdown.innerHTML = '<option value="">Select a Scheme</option>';
+                            
+                            if (category) {
+                                // Fetch scheme names based on category and loan type "Business"
+                                fetch(`http://localhost:3000/api/getSchemes?category=${category}&loantype=Business`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        data.forEach(scheme => {
+                                            const option = document.createElement('option');
+                                            option.value = scheme.id; // Assuming 'id' is the property for the scheme's ID
+                                            option.textContent = scheme.scheme_name; // Assuming 'scheme_name' is the property for the scheme's name
+                                            schemeNameDropdown.appendChild(option);
+                                        });
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching schemes:', error);
+                                    });
+                            }
+                        });
+                    });
+                </script>
+                    <div class="form-group">
+                    <label for="loanamount">Required loan amount(in Rs)</label>
+                    <input type="text" id="loanamount" name="loanamount">
+                </div>
+                <div class="form-group">
+                    <label for="approvedamount">Approved amount(in Rs)</label>
+                    <input type="number" id="approvedamount" name="approvedamount">
+                </div>
+                <div class="form-group">
+                    <label for="interesterate">Rate of interest(%)</label>
+                    <input type="number" id="interestrate" name="interestname">
+                </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scashare">SCA Share(%)</label>
+                        <input type="text" id="scashare" name="scashare">
+                    </div>
+                    <div class="form-group">
+                        <label for="scacontri">SCA Contribution(in Rs)</label>
+                        <input type="number" id="scacontri" name="scacontri">
+                    </div>
+                    <div class="form-group">
+                        <label for="Promotershare">Promoter's share(%)</label>
+                        <input type="text" id="Promotershare" name="Promotershare">
+                    </div>
+                    <div class="form-group">
+                        <label for="promotercontri">Promoter Contribution(Rs)</label>
+                        <input type="text" id="promotercontri" name="promotercontri">
+                    </div>
+                    <div class="form-group">
+                        <label for="apexshare">Apex share(%)</label>
+                        <input type="text" id="apexshare" name="apexshare">
+                    </div>
+                    <div class="form-group">
+                        <label for="apexcontri">Apex contribution(in Rs)</label>
+                        <input type="text" id="apexcontri" name="apexcontri">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="available_repayment_period">Available repayment period(in months)</label>
+                        <input type="text" id="available_repayment_period" name="available_repayment_period">
+                    </div>
+                    <div class="form-group">
+                        <label for="repaymentperiod">Repayment period</label>
+                        <input type="text" id="repaymentperiod" name="repaymentperiod">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h3>Assumptions</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                    <label for="operated_perday">K.M Operated per day</label>
+                    <input type="text" id="operated_perday" name="operated_perday">
+                    </div>
+                    <div>
+                        <label for="rate_perkm">Rate per km/ Load(in Rs)</label>
+                        <input type="text" id="rate_perkm" name="rate_perkm">
+                    </div>
+                    <div>
+                        <label for="working_days">Number of working days</label>
+                        <input type="number" id="working_days" name="working_days">
+                    </div>
+                    <div>
+                    <label for="fuel_type">Type of fuel used</label>
+                    <select id="fuel_type" name="fuel_type">
+                        <option value=""></option>
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                    </select>
+                    </div>
+                    <div>
+                        <label for="tyre_cost">Cost for replacement of tyre(in Rs)</label>
+                        <input type="text" id="tyre_cost" name="tyre_cost">
+                    </div>
+                    <div>
+                        <label for="engineoil_cost">Cost of engine oil per litre(in Rs)</label>
+                        <input type="text" id="engineoil_cost" name="engineoil_cost">
+                    </div>
+                </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label for="engineoil_quantity">Engine oil quantity</label>
+                        <input type="text" id="engineoil_quantity" name="engineoil_quantity">
+                    </div>
+                    <div>
+                        <label for="fuel_mileage">Mileage per litre of fuel (in km)</label>
+                        <input type="text" id="fuel_mileage" name="fuel_mileage">
+                    </div>
+                    <div>
+                        <label for="fuel_cost">Cost of fuel per litre (in Rs)</label>
+                        <input type="text" id="fuel_cost" name="fuel_cost">
+                    </div>
+                    <div>
+                        <label for="tyre_change_period">Period of replacement of tyres (in years)</label>
+                        <input type="text" id="tyre-change_period" name="tyre_change_period">
+                    </div>
+                    <div>
+                        <label for="vehicle_life">Life of vehicle (in years)</label>
+                        <input type="text" id="vehicle_life" name="vehicle_type">
+                    </div>
+                    <div>
+                        <label for="service_cost">Service cost (in Rs)</label>
+                        <input type="text" id="service_cost" name="service_cost">
+                    </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehicle_service_cycle">Vehicle service cycle</label>
+                            <input type="text" id="vehicle_service_cycle" name="vehicle_service_cost">
+                        </div>
+                        <div>
+                            <label for="replacement_norms">Replacement norms for engine oil</label>
+                            <textarea id="replacement_norms" name="replacement_norms"></textarea>
+                        </div>
+                    </div>
+            </div>
+        </div>
+            <div class="form-container">
+            <div class="form-section">
+                <h2>Profitability Statement (Non - Transport)</h2>
+            
+                <form action="#" method="post">
+                    <label for="sales-revenue">Sales Revenue for a year of operation (in Rs.)</label>
+                    <input type="text" id="sales-revenue" name="sales-revenue">
+            
+                    <h3>Details of Raw Material, Skill, Power and other requirements for a normal year of operation:</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="raw-materials">Raw Materials (in Rs.)</label>
+                    <input type="text" id="raw-materials" name="raw-materials">
+                </div>
+                <div>
+                    <label for="stores-spares">Stores & Spares (in Rs.)</label>
+                    <input type="text" id="stores-spares" name="stores-spares">
+                </div>
+                <div>
+                    <label for="power-fuel">Power & Fuel (in Rs.)</label>
+                    <input type="text" id="power-fuel" name="power-fuel">
+                    </div>
+                    <div>
+                    <label for="repair-maintenance">Repair & Maintenance (in Rs.)</label>
+                    <input type="text" id="repair-maintenance" name="repair-maintenance">
+                    </div>
+                    <div>
+                    <label for="marketing-arrangements">Marketing Arrangements (in Rs.)</label>
+                    <input type="text" id="marketing-arrangements" name="marketing-arrangements">
+                    </div>
+                    <div>
+                    <label for="marketing-sales-details">Details of Marketing & Sales Details</label>
+                    <textarea id="marketing-sales-details" name="marketing-sales-details"></textarea>
+                </div>
+                </div>
+                <div class="form-row">
+
+               <div class="form-group">
+                    <label for="wages-salaries">Wages & Salaries (in Rs.)</label>
+                    <input type="text" id="wages-salaries" name="wages-salaries">
+                </div>
+                <div>
+                    <label for="admin-selling">Administrative & Selling (in Rs.)</label>
+                    <input type="text" id="admin-selling" name="admin-selling">
+                </div>
+                <div>
+                    <label for="overheads">Overheads (in Rs.)</label>
+                    <input type="text" id="overheads" name="overheads">
+                </div>
+                <div>
+                    <label for="interest">Interest (in Rs.)</label>
+                    <input type="text" id="interest" name="interest">
+                </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                    <label for="term-loan">Term Loan (Repayment) (in Rs.)</label>
+                    <input type="text" id="term-loan" name="term-loan">
+                    </div>
+                    <div>
+                    <label for="other-charges">Other Charges (in Rs.)</label>
+                    <input type="text" id="other-charges" name="other-charges">
+                    </div>
+                    <div>
+                    <label for="other-costs">Details of other Costs</label>
+                    <textarea id="other-costs" name="other-costs"></textarea>
+                    </div>
+                    <div>
+                    <label for="total-cost-production">Total Cost of Production (in Rs.)</label>
+                    <input type="text" id="total-cost-production" name="total-cost-production" placeholder="0.00">
+                    </div>
+                    <div>
+                    <label for="cash-profit">Cash Profit (in Rs.)</label>
+                    <input type="text" id="cash-profit" name="cash-profit" placeholder="0.00" disabled>
+                    </div>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+            <div class="form-container">
+                <div class="form-section">
+                <h2>Profitability Statement (Transport Sector)</h2>
+            
+                <form action="#" method="post">
+                       
+                    <h4>Please give details of Sales Revenue and expenditure for a normal year of operation</h4>
+                    <div class="form-row">
+                    <div class="form-group">
+                    <label for="sales-revenue-details">Sales Revenue Details</label>
+                    <textarea id="sales-revenue-details" name="sales-revenue-details"></textarea>
+                        </div>
+                        <div>
+                    <label for="revenue-from-sales">Revenue from Sales (in Rs.)</label>
+                    <input type="text" id="revenue-from-sales" name="revenue-from-sales">
+                        </div>
+                    </div>
+            
+                    <h3>Expenditure and Operating Details:</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                    <label for="fuel-expenditure">Expenditure Spent on Fuel (Petrol/Diesel) (in Rs.)</label>
+                    <input type="text" id="fuel-expenditure" name="fuel-expenditure">
+                        </div>
+                        <div>
+                    <label for="engine-oil-expenditure">Expenditure Spent on Engine oil (in Rs.)</label>
+                    <input type="text" id="engine-oil-expenditure" name="engine-oil-expenditure">
+                        </div>
+                        <div>
+                    <label for="tyre-replacement">Replacement of Tyres (in Rs.)</label>
+                    <input type="text" id="tyre-replacement" name="tyre-replacement">
+                        </div>
+                        <div>
+                    <label for="insurance">Insurance (in Rs.)</label>
+                    <input type="text" id="insurance" name="insurance">
+                        </div>
+                        <div>
+                    <label for="total-operating-cost">Total Operating Cost (in Rs.)</label>
+                    <input type="text" id="total-operating-cost" name="total-operating-cost" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                    <label for="repair-maintenance">Repairs & Maintenance (in Rs.)</label>
+                    <input type="text" id="repair-maintenance" name="repair-maintenance">
+                        </div>
+                        <div>
+                    <label for="interest-repayment">Interest Repayment (in Rs.)</label>
+                    <input type="text" id="interest-repayment" name="interest-repayment">
+                        </div>
+                        <div>
+                    <label for="principal-repayment">Principal Repayment (in Rs.)</label>
+                    <input type="text" id="principal-repayment" name="principal-repayment">
+                        </div>
+                        <div>
+                    <label for="other-expenses">Other Expenses (in Rs.)</label>
+                    <input type="text" id="other-expenses" name="other-expenses">
+                        </div>
+                        <div>
+                    <label for="cash-profit">Cash Profit (in Rs.)</label>
+                    <input type="text" id="cash-profit" name="cash-profit" placeholder="0.00">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+            <div class="form-container">
+                <div class="form-section">
+                        <div class="form-group">
+                            <h3>Surety details</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Salutation</th>
+                            <th>Surety name*</th>
+                            <th>Gender*</th>
+                            <th>Father/Husband's name*</th>
+                            <th>Company name*</th>
+                            <th>Designation</th>
+                            <th>Salary drawn per month (in Rs)</th> 
+                            <th>Mobile no.</th>
+                            <th>Address</th> 
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text"></td>
+                        <td><input type="text">  </td>
+                        <td><input type="text" ></td>
+                        <td><input type="text"></td>
+                        <td><input type="text" ></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="number"></td>
+                        <td><textarea id="address" name="address"></textarea></td>
+                      </tr>
+                    </tbody>
+                </table>
+                    </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="form-section">
+                <h2>List of Documents Submitted (** Please Check on Submitted check box for the documents you have submitted)</h2>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Documents</th>
+                            <th>Submitted</th>
+                            <th>Description</th>
+                            <th>Upload</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <select name="document1">
+                                    <option>Birth Certificate or School Leaving Certificate (Attested) (Age:18-55 Years)</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted1"></td>
+                            <td><input type="text" name="description1"></td>
+                            <td><input type="file" accept=".jpeg" name="file1"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <select name="document2">
+                                    <option>Income Certificate issued by Sarpanch/Chief Officer concerned.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted2"></td>
+                            <td><input type="text" name="description2"></td>
+                            <td><input type="file" accept=".jpeg" name="file2"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <select name="document3">
+                                    <option>Caste Certificate issued by Dy. Collector/ 40% Disability Certificate in case of.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted3"></td>
+                            <td><input type="text" name="description3"></td>
+                            <td><input type="file" accept=".jpeg" name="file3"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <select name="document4">
+                                    <option>Residence Certificate (15 years).</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted4"></td>
+                            <td><input type="text" name="description4"></td>
+                            <td><input type="file" accept=".jpeg" name="file4"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                <select name="document5">
+                                    <option>Ration Card.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted5"></td>
+                            <td><input type="text" name="description5"></td>
+                            <td><input type="file" accept=".jpeg" name="file5"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>
+                                <select name="document6">
+                                    <option>Passport size Photographs (Two).</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted6"></td>
+                            <td><input type="text" name="description6"></td>
+                            <td><input type="file" accept=".jpeg" name="file6"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>
+                                <select name="document7">
+                                    <option>Technical/Educational qualification Certificate, if any.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted7"></td>
+                            <td><input type="text" name="description7"></td>
+                            <td><input type="file" accept=".jpeg" name="file7"></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>
+                                <select name="document8">
+                                    <option>Driving License, Badge No. in case of Tourist vehicles.</option>
+                                </select>
+                            </td>
+                            <td><input type="checkbox" name="submitted8"></td>
+                            <td><input type="text" name="description8"></td>
+                            <td><input type="file" accept=".jpeg" name="file8"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
+            
+            <script>
+                function addRow() {
+                    const table = document.querySelector("table tbody");
+                    const rowCount = table.rows.length + 1;
+                    const newRow = `
+                        <tr>
+                            <td>${rowCount}</td>
+                            <td><select name="document${rowCount}"><option>New Document ${rowCount}</option></select></td>
+                            <td><input type="checkbox" name="submitted${rowCount}"></td>
+                            <td><input type="text" name="description${rowCount}"></td>
+                            <td><input type="file" accept=".jpeg" name="file${rowCount}"></td>
+                        </tr>`;
+                    table.insertAdjacentHTML('beforeend', newRow);
+                }
+            </script>
+            <div class="form-group-radio">
+                <input type="radio" id="confirmation" name="confirmation" value="confirmation">
+                <label for="undertaking">I certify that to the best of my knowledge and belief, the information furnished herein is true and correct. I promise to abide by the terms and conditions governing the loan facility of your corporation.</label>
+                
+            </div>
+            <div class="buttons">
+                <button type="submit">Submit Application</button>
+                <button type="button" onclick="window.location.href='home.html'">Cancel</button>
+            </div>
+            
+
+</body>           
+</html>
+            
